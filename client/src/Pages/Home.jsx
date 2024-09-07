@@ -3,13 +3,14 @@ import taskList from "../Components/taskList"
 
 const Home = () => {
   return (
-    <div>
-        <div>
-          <h2>Welcome, <span>Bildad</span></h2>
-          <p>Add new tasks, edit existing tasks or delete tasks</p>
+    <div className="max-w-4xl mx-auto p-2"> 
+        <div className="text-center">
+          <h2 className="text-2xl">Welcome, <span className="text-green-500 font-semibold">Bildad</span></h2>
+          <p className="text-lg pt-2">Add new tasks, edit existing tasks or delete tasks</p>
+          <hr className="bg-green-500 h-[1px] w-1/4 mt-2  mx-auto border-0" />
         </div>
-        <Link>
-        <span>+ Add New Task</span>
+        <Link to={'add-task'} className="flex justify-end mt-6">
+        <span className="bg-green-500 p-2 rounded-2xl font-semibold text-white text-sm hover:text-slate-200">+ Add New Task</span>
         </Link>
 
         <h1>My Tasks</h1>

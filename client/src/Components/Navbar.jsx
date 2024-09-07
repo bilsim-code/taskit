@@ -19,7 +19,7 @@ const Navbar = () => {
         />
         <OutsideClickHandler onOutsideClick={() => setSidebarOn(false)}>
         <ul
-          className={`${sidebarOn ? "max-sm:translate-x-0" : ""} transition-all duration-0 max-sm:-translate-x-80 absolute top-20 left-4 max-nav-xxs:left-0 bg-white shadow shadow-gray-500 p-2 w-[35%] max-nav-xs:w-[60%] max-nav-xxs:w-[90%] h-52 rounded-md flex flex-col gap-2 z-10 sm:relative sm:bg-transparent sm:shadow-none sm:flex-row sm:h-auto sm:top-auto sm:left-auto sm:w-auto sm:gap-5`}
+          className={`${sidebarOn ? "max-sm:translate-x-0" : ""} transition-all duration-0 max-sm:-translate-x-80 absolute top-20 left-4 max-nav-xxs:left-0 shadow shadow-gray-500 p-2 w-[35%] max-nav-xs:w-[60%] max-nav-xxs:w-[90%] h-52 rounded-md flex flex-col gap-2 z-10 sm:relative sm:bg-transparent sm:shadow-none sm:flex-row sm:h-auto sm:top-auto sm:left-auto sm:w-auto sm:gap-5 bg-orange-50`}
         >
           <X
             className="cursor-pointer sm:hidden"

@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import task_list_logo from "../assets/task-it_logo.png";
 import profile from "../assets/profile.jpg";
-import { Search, Menu, X } from "react-feather";
+import { Search, Menu, X, ChevronDown } from "react-feather";
 import {} from "react-icons/md";
 import {  useState } from "react";
+import OutsideClickHandler from 'react-outside-click-handler'
 
 const Navbar = () => {
   const [sidebarOn, setSidebarOn] = useState(false);
@@ -11,6 +12,12 @@ const Navbar = () => {
   return (
     <nav className=" bg-sky-300 z-50 sticky top-0 py-2">
       <section className="flex items-center justify-between max-w-4xl mx-auto">
+      <Menu
+          role="button"
+          className="ml-4 sm:hidden"
+          onClick={() => setSidebarOn(prev => !prev)}
+        />
+        <OutsideClickHandler onOutsideClick={() => setSidebarOn(false)}>
         <ul
           className={`${sidebarOn ? "max-sm:translate-x-0" : ""} transition-all duration-0 max-sm:-translate-x-80 absolute top-20 left-4 max-nav-xxs:left-0 bg-white shadow shadow-gray-500 p-2 w-[35%] max-nav-xs:w-[60%] max-nav-xxs:w-[90%] h-52 rounded-md flex flex-col gap-2 z-10 sm:relative sm:bg-transparent sm:shadow-none sm:flex-row sm:h-auto sm:top-auto sm:left-auto sm:w-auto sm:gap-5`}
         >
@@ -34,14 +41,15 @@ const Navbar = () => {
               About
             </Link>
           </li>
-          <li className="group w-fit relative sm:fixed sm:top-2.5 sm:right-[20%]  sm:w-[40px]">
-            <div className="relative">
+          <li className="group w-fit relative sm:fixed sm:top-2.5 sm:right-[20%]  sm:w-[60px]">
+            <div className="relative border rounded-md flex items-center gap-1 cursor-pointer p-1 bg-white">
               <img
                 src={profile}
                 alt=""
-                className="w-10 rounded-full cursor-pointer"
+                className="w-7 rounded-full cursor-pointer"
               />
-              <div className="size-2.5 bg-green-600 absolute left-8 bottom-0 rounded-full"></div>
+              <div className="size-1.5 bg-green-600 absolute left-6 bottom-1 rounded-full"></div>
+              <ChevronDown size={'16'}/>
             </div>
             <div className="hidden group-hover:block mt-4 ">
               <a
@@ -53,12 +61,7 @@ const Navbar = () => {
             </div>
           </li>
         </ul>
-
-        <Menu
-          role="button"
-          className="ml-4 sm:hidden"
-          onClick={() => setSidebarOn(prev => !prev)}
-        />
+        </OutsideClickHandler>
 
         <Link to={"/"}>
           <img

@@ -10,7 +10,7 @@ const Navbar = () => {
   const [sidebarOn, setSidebarOn] = useState(false);
 
   return (
-    <nav className=" bg-sky-300 z-50 sticky top-0 py-2">
+    <nav className=" bg-sky-300 z-50 sticky top-0 py-2 mb-10">
       <section className="flex items-center justify-between max-w-4xl mx-auto">
       <Menu
           role="button"

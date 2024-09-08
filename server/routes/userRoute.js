@@ -24,7 +24,8 @@ route.post('/login', async(req, res) => {
         res.redirect('/');
         
     } catch (error) {
-        
+        console.log(error);
+        res.json({success: false, message: "Error"});
     }
 })
 
@@ -63,6 +64,7 @@ route.post('/register', async(req, res) => {
            return res.json({success: false, message: "User already exists"})
         }
         res.json({success: false, message: "Server Error"});
+        console.log(error);
     }
 })
 

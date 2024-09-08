@@ -8,6 +8,20 @@ const validator = require('validator')
 //POST login
 route.post('/login', async(req, res) => {
     try {
+        const {username, password} = req.body;
+        const user = await userModel.findOne({username});
+        if(!user) {
+            return res.json({success: false, message: "User doesn't exist"});
+        }
+
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if(!isValidPassword) {
+            return res.json({success: false, message: "Password is Invalid.Please try again..."});
+        }
+
+        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
+        res.json({success: true, message: token});
+        res.redirect('/');
         
     } catch (error) {
         

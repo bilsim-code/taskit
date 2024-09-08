@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../Components/AppContext";
 
 const Auth = () => {
   const [status, setStatus] = useState("login");
@@ -9,6 +10,8 @@ const Auth = () => {
     email: "",
   });
 
+  const {url} = useContext(AppContext);
+
   const handleOnChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -17,6 +20,7 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(url)
   };
 
   return (

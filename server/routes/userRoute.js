@@ -43,6 +43,7 @@ route.post('/register', async(req, res) => {
 
         const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
 
+        res.json({success: true, token})
     } catch (error) {
         if(error.code === 11000) {
            return res.json({success: false, message: "User already exists"})

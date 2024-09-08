@@ -5,8 +5,11 @@ const userRoute = require('./routes/userRoute');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODBURI)
 .then(() => console.log(`Database connected: ${mongoose.connection.host}`))
+.catch(error => console.log(error.message));
+const cors = require('cors');
 //END OF IMPORTS
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Components/AppContext";
+import axios from 'axios';
 
 const Auth = () => {
   const [status, setStatus] = useState("login");
@@ -20,7 +21,15 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(url)
+
+    let newUrl = url;
+    if(status === "login") {
+        newUrl += '/auth/login'
+    }
+    else {
+        newUrl += "/auth/register";
+    }
+    
   };
 
   return (

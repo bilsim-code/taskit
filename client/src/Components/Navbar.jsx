@@ -27,7 +27,7 @@ const Navbar = () => {
           />
           <li className="font-bold text-lg max-nav-xxs:text-base">
             <Link
-              to={"/"}
+              to={"/home"}
               className="hover:text-sky-300 sm:hover:text-slate-500 transition-all duration-300"
             >
               Home
@@ -63,7 +63,7 @@ const Navbar = () => {
         </ul>
         </OutsideClickHandler>
 
-        <Link to={"/"}>
+        <Link to={"/home"}>
           <img
             src={task_list_logo}
             alt="task_list_logo"

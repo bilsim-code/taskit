@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AppContext } from "../Components/AppContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Auth = () => {
   const [status, setStatus] = useState("login");
@@ -36,9 +37,11 @@ const Auth = () => {
     if(response.data.success) {
         setToken(response.data.token);
         navigate("/home");
+        toast.success(response.data.message)
     }
     else {
         console.log("Auth failed")
+        toast.error(response.data.message)
     }
     
   };

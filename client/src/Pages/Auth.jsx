@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Auth = () => {
   const [status, setStatus] = useState("login");

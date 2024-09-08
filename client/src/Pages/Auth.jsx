@@ -3,9 +3,26 @@ import { useState } from "react";
 const Auth = () => {
   const [status, setStatus] = useState("login");
 
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+    email: "",
+});
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setData(data => ({...data, [name]: value}))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+
   return (
     <div className="flex items-center justify-center h-screen max-nav-xxs:items-start" >
-      <form className="w-[600px] max-w-full mx-5 bg-sky-200 px-4 max-nav-xxs:px-1 max-nav-xxs:mx-1 py-6 rounded shadow shadow-slate-500">
+      <form onSubmit={handleSubmit} className="w-[600px] max-w-full mx-5 bg-sky-200 px-4 max-nav-xxs:px-1 max-nav-xxs:mx-1 py-6 rounded shadow shadow-slate-500">
         <h2 className="text-2xl text-center mb-5 font-medium">{status === "login" ? "Login" : "Register"}</h2>
         <input
           type="text"

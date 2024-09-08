@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Components/AppContext";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [status, setStatus] = useState("login");
@@ -10,8 +11,9 @@ const Auth = () => {
     password: "",
     email: "",
   });
+  const navigate = useNavigate();
 
-  const {url} = useContext(AppContext);
+  const {url, setToken} = useContext(AppContext);
 
   const handleOnChange = (e) => {
     const value = e.target.value;
@@ -19,7 +21,7 @@ const Auth = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     let newUrl = url;
@@ -28,6 +30,15 @@ const Auth = () => {
     }
     else {
         newUrl += "/auth/register";
+    }
+
+    const response = await axios.post(newUrl, data);
+    if(response.data.success) {
+        setToken(response.data.token);
+        navigate("/home");
+    }
+    else {
+        console.log("Auth failed")
     }
     
   };
@@ -58,7 +69,7 @@ const Auth = () => {
           onChange={handleOnChange}
           value={data.password}
         />
-        {status === "login" ? (
+        {status !== "login" ? (
           <input
             type="email"
             name="email"

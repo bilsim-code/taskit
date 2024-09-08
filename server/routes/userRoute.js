@@ -20,8 +20,8 @@ route.post('/login', async(req, res) => {
         }
 
         const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
-        res.json({success: true, message: token});
-        res.redirect('/');
+        res.json({success: true, token, message: "Successfully Logged in"});
+       // res.redirect('/');
         
     } catch (error) {
         console.log(error);
@@ -58,7 +58,7 @@ route.post('/register', async(req, res) => {
 
         const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
 
-        res.json({success: true, token})
+        res.json({success: true, token, message: "Successfully registered!"})
     } catch (error) {
         if(error.code === 11000) {
            return res.json({success: false, message: "User already exists"})

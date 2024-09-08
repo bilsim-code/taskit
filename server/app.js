@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGODBURI)
 //END OF IMPORTS
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}));
 
 //routes
 app.use("/user/auth", userRoute);

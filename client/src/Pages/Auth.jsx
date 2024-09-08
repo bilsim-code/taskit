@@ -6,7 +6,7 @@ const Auth = () => {
   return (
     <div className="flex items-center justify-center h-screen max-nav-xxs:items-start" >
       <form className="w-[600px] max-w-full mx-5 bg-sky-200 px-4 max-nav-xxs:px-1 max-nav-xxs:mx-1 py-6 rounded shadow shadow-slate-500">
-        <h2 className="text-2xl text-center mb-5 font-medium">Login</h2>
+        <h2 className="text-2xl text-center mb-5 font-medium">{status === "login" ? "Login" : "Register"}</h2>
         <input
           type="text"
           name="username"
@@ -41,19 +41,19 @@ const Auth = () => {
           type="submit"
           className="bg-black text-white p-1.5 w-1/2 max-nav-xxs:w-full grid mx-auto rounded uppercase font-medium "
         >
-          Login
+          {status === "login" ? "Login" : "Register"}
         </button>
         {status === "login" ? (
               <p className="mt-4 text-center">
           Don&apos;t have an account?
-          <span className="text-purple-900 font-medium cursor-pointer text-lg" onClick={() => setStatus("register")}>
+          <span className="text-purple-900 font-medium cursor-pointer text-lg border-b border-purple-900 pl-1" onClick={() => setStatus("register")}>
             Register
           </span>
         </p>
         ) : (
             <p className="mt-4 text-center">
-            Already have an account?
-            <span className="text-purple-900 font-medium cursor-pointer text-lg" onClick={() => setStatus("login")}>
+            Already have an account? 
+            <span className="text-purple-900 font-medium cursor-pointer text-lg border-b border-purple-900 pl-1" onClick={() => setStatus("login")}>
               Login
             </span>
           </p>

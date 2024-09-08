@@ -31,6 +31,18 @@ route.post('/register', async(req, res) => {
         if(!validator.isEmail(email)) {
             return res.json({success: false, message: "Please enter a valid email address"});
         }
+
+        //hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await userModel.create({
+            username,
+            password: hashedPassword,
+            email,
+        })
+
+        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
+
     } catch (error) {
         if(error.code === 11000) {
            return res.json({success: false, message: "User already exists"})

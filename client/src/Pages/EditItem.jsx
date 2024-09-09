@@ -13,7 +13,7 @@ const EditItem = () => {
             <option value="high">High</option>
         </select>
         <select name="status" id="" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" required>
-            <option value="">** Choose priority of the task **</option>
+            <option value="">** Choose status of the task **</option>
             <option value="pending">Pending</option>
             <option value="inProgress">In-Progress</option>
             <option value="completed">Completed</option>

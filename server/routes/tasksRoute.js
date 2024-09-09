@@ -40,7 +40,16 @@ route.post("/add", authMiddleware, async (req, res) => {
 route.post("/edit/:id", authMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await tasksModel.findByyId({_id: id});
+    const userId = req.body.userId;
+    const data = await tasksModel.findByIdAndUpdate({_id: id, userId}, {
+        title: req.body.title,
+        description: req.body.description,
+        priority: req.body.priority,
+        status: req.body.status,
+        dueDate: req.body.dueDate
+    })
+
+    res.json({success: true, message: "Edited Successfully!!"});
   } catch (error) {
     console.log(error);
     res.json({success: false, message: "Error Editing Task"})
@@ -50,7 +59,14 @@ route.post("/edit/:id", authMiddleware, async (req, res) => {
 //POST /api/tasks/delete/:id
 route.post("/delete/:id", authMiddleware, async (req, res) => {
   try {
-  } catch (error) {}
+    const id = req.params.id;
+    const userId = req.body.userId;
+    const data = await tasksModel.findByIdAndDelete({_id: id, userId});
+    res.json({success: true, message: "Deleted Successfully"})
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message: "Error Deleting Task"})
+  }
 });
 
 module.exports = route;

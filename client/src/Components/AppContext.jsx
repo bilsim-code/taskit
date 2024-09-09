@@ -17,13 +17,21 @@ const ProviderFunction = (props) => {
         setToken(savedToken);
         fetchTaskList(savedToken); 
     }
+    else {
+        navigate('/auth')
+    }
    
    }, [])
+
+   useEffect(() => {
+    if(token) {
+        fetchTaskList(token);
+    }
+   }, [token]); //fetch tasks when the token changes.
 
    //fetch tasks list
    async function fetchTaskList(savedToken) {
     if(!savedToken) {
-        navigate('/')
         return;
     }
     try {

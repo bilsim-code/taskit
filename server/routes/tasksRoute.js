@@ -1,14 +1,19 @@
 const express = require("express");
 const route = express.Router();
 const tasksModel = require("../models/taskModel");
+const userModel = require('../models/userModel');
 const authMiddleware = require("../auth/authMiddleware");
 
 //GET /api/tasks
 route.get("/", authMiddleware, async(req, res) => {
     try {
         const userId = req.userId;
+        const user = await userModel.findById({_id: userId});
         const data = await tasksModel.find({userId}).sort({updatedAt: -1});
         res.json({success: true, data, message: "Fetched"});
+        if(!user) {
+            res.json({success: false, message: "User doesn't exist"})
+        }
     } catch (error) {
         console.log(error);
         res.json({success: false, message: "Error Getting Tasks"})

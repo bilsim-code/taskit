@@ -5,13 +5,16 @@ export const AppContext = createContext();
 
 const ProviderFunction = (props) => {
     const url = "http://localhost:3000";
-    const [token, setToken] = useState()
+    const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        console.log(token)
-    }, [token]);
+   useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    if(savedToken) {
+        setToken(savedToken);
+    }
+   }, [])
     return(
-        <AppContext.Provider value={{url, setToken}}>
+        <AppContext.Provider value={{url, setToken, token}}>
             {props.children}
         </AppContext.Provider>
     )

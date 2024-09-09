@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Components/AppContext";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -14,7 +14,7 @@ const Auth = () => {
   });
   const navigate = useNavigate();
 
-  const {url, setToken} = useContext(AppContext);
+  const { url, setToken } = useContext(AppContext);
 
   const handleOnChange = (e) => {
     const value = e.target.value;
@@ -22,28 +22,28 @@ const Auth = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newUrl = url;
-    if(status === "login") {
-        newUrl += '/auth/login'
-    }
-    else {
-        newUrl += "/auth/register";
+    if (status === "login") {
+      newUrl += "/auth/login";
+    } else {
+      newUrl += "/auth/register";
     }
 
     const response = await axios.post(newUrl, data);
-    if(response.data.success) {
-        setToken(response.data.token);
-        navigate("/home");
-        toast.success(response.data.message)
+    if (response.data.success) {
+      const token = response.data.token;
+      setToken(token);
+      localStorage.setItem("token", token);
+      console.log("stored token: ", response.data.token);
+      navigate("/home");
+      toast.success(response.data.message);
+    } else {
+      console.log("Auth failed");
+      toast.error(response.data.message);
     }
-    else {
-        console.log("Auth failed")
-        toast.error(response.data.message)
-    }
-    
   };
 
   return (

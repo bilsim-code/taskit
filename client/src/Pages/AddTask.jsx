@@ -1,5 +1,8 @@
-import {  useState } from "react"
+import {  useContext, useState } from "react"
 import axios from 'axios';
+import { AppContext } from "../Components/AppContext";
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom'
 
 const AddTask = () => {
   const [data, setData ] = useState({
@@ -9,6 +12,9 @@ const AddTask = () => {
     status: "",
     dueDate: "",
   })
+  const {url, token} = useContext(AppContext);
+  console.log("token retrieved", token)
+  const navigate = useNavigate();
 
   const handleOnchange = (e) => {
     const value = e.target.value;
@@ -18,6 +24,18 @@ const AddTask = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(`${url}/api/tasks/add`, data, {headers: {token}});
+      if(response.data.success) {
+        navigate('/home');
+        toast.success(response.data.message);
+      }
+      else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -28,17 +46,18 @@ const AddTask = () => {
     <textarea name="description" id="description" placeholder="Task Description" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" onChange={handleOnchange} value={data.description}></textarea>
     <select name="priority" id="priority" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" required onChange={handleOnchange} value={data.priority} >
         <option value="">** Choose Priority **</option>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
     </select>
     <select name="status" id="" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" required onChange={handleOnchange} value={data.status}>
         <option value="">** Choose status of the task **</option>
-        <option value="pending">Pending</option>
-        <option value="inProgress">In-Progress</option>
-        <option value="completed">Completed</option>
+        <option value="Pending">Pending</option>
+        <option value="In-Progress">In-Progress</option>
+        <option value="Completed">Completed</option>
     </select>
-    <input type="date" name="dueDate" id="dueDate" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" onChange={handleOnchange} value={data.dueDate}/>
+    <label htmlFor="dueDate">Due Date: </label>
+    <input type="date" name="dueDate" id="dueDate" placeholder="dueDate" className="border border-black focus:outline-slate-800 rounded p-2 w-full mb-3" onChange={handleOnchange} value={data.dueDate}/>
     <button type="submit" className="rounded p-1 w-1/2 max-nav-xs:w-full mx-auto bg-sky-300 ring-2  ring-slate-600 mt-6">Add Task</button>
 </form>
   )

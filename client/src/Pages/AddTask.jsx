@@ -28,6 +28,13 @@ const AddTask = () => {
       if(response.data.success) {
         navigate('/home');
         toast.success(response.data.message);
+        setData({
+          title: "",
+          description: "",
+          priority: "",
+          status: "",
+          dueDate: "",
+        })
       }
       else {
         toast.error(response.data.message);

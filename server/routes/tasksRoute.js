@@ -7,6 +7,8 @@ const authMiddleware = require("../auth/authMiddleware");
 route.post("/add", authMiddleware, async (req, res) => {
   try {
     const { title, description, priority, status, dueDate } = req.body;
+    const userId = req.body.userId;
+    
     if (
       title.trim() === "" ||
       description.trim() === "" ||
@@ -23,6 +25,7 @@ route.post("/add", authMiddleware, async (req, res) => {
         priority,
         status,
         dueDate,
+        userId
     })
 
     res.json({success: true, data});
@@ -36,7 +39,12 @@ route.post("/add", authMiddleware, async (req, res) => {
 //POST /api/tasks/edit/:id
 route.post("/edit/:id", authMiddleware, async (req, res) => {
   try {
-  } catch (error) {}
+    const id = req.params.id;
+    const data = await tasksModel.findByyId({_id: id});
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message: "Error Editing Task"})
+  }
 });
 
 //POST /api/tasks/delete/:id

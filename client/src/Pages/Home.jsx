@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import taskList from "../Components/taskList";
+//import taskList from "../Components/taskList";
 import { FaChevronDown } from "react-icons/fa";
+import { useContext, } from "react";
+import { AppContext } from "../Components/AppContext";
 
 const Home = () => {
+    const {taskList, } = useContext(AppContext);
   return (
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
       <div className="text-center pb-4">

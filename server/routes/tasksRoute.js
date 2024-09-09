@@ -6,9 +6,9 @@ const authMiddleware = require("../auth/authMiddleware");
 //GET /api/tasks
 route.get("/", authMiddleware, async(req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.userId;
         const data = await tasksModel.find({userId}).sort({updatedAt: -1});
-        res.json({success: true, data});
+        res.json({success: true, data, message: "Fetched"});
     } catch (error) {
         console.log(error);
         res.json({success: false, message: "Error Getting Tasks"})
@@ -19,7 +19,7 @@ route.get("/", authMiddleware, async(req, res) => {
 route.post("/add", authMiddleware, async (req, res) => {
   try {
     const { title, description, priority, status, dueDate } = req.body;
-    const userId = req.body.userId;
+    const userId = req.userId;
     
     if (
       title.trim() === "" ||
@@ -52,7 +52,7 @@ route.post("/add", authMiddleware, async (req, res) => {
 route.post("/edit/:id", authMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
-    const userId = req.body.userId;
+    const userId = req.userId;
     const data = await tasksModel.findByIdAndUpdate({_id: id, userId}, {
         title: req.body.title,
         description: req.body.description,
@@ -73,7 +73,7 @@ route.post("/edit/:id", authMiddleware, async (req, res) => {
 route.post("/delete/:id", authMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
-    const userId = req.body.userId;
+    const userId = req.userId;
     const data = await tasksModel.findByIdAndDelete({_id: id, userId});
     res.json({success: true, message: "Deleted Successfully"})
   } catch (error) {

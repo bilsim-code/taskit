@@ -33,6 +33,10 @@ const tasksSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now()
+  }
 });
 
 const tasksModel = mongoose.model("tasks", tasksSchema);

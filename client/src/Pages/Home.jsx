@@ -32,17 +32,29 @@ const Home = () => {
             className="bg-sky-50 shadow shadow-slate-400 rounded-2xl  px-4 py-2.5 flex flex-col "
           >
             <div className="flex justify-between items-center max-nav-xxs:flex-col max-nav-xxs:gap-4">
-              <a href="#" className="font-medium">{item.title}</a>
-            <div className="flex gap-2">
-              <a href={`/edit/${item._id}`} className="bg-green-500 rounded-lg text-white p-1 px-4 max-nav-xxs:p-1 max-nav-xxs:px-2">Edit</a>
-              <form action={`/delete/${item._id}`}>
-                <button type="submit" className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1">Delete</button>
-              </form>
-            </div> 
+              <a href="#" className="font-medium">
+                {item.title}
+              </a>
+              <div className="flex gap-2">
+                <a
+                  href={`/edit/${item._id}`}
+                  className="bg-green-500 rounded-lg text-white p-1 px-4 max-nav-xxs:p-1 max-nav-xxs:px-2"
+                >
+                  Edit
+                </a>
+                <form action={`/delete/${item._id}`}>
+                  <button
+                    type="submit"
+                    className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1"
+                  >
+                    Delete
+                  </button>
+                </form>
+              </div>
             </div>
-           <div className="place-self-end pt-3 text-slate-500 text-sm">
-            duedate
-           </div>
+            <div className="place-self-end pt-3 text-slate-500 text-sm">
+              duedate
+            </div>
           </li>
         ))}
       </ul>

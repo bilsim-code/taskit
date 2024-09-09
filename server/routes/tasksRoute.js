@@ -6,10 +6,13 @@ const authMiddleware = require("../auth/authMiddleware");
 //GET /api/tasks
 route.get("/", authMiddleware, async(req, res) => {
     try {
-        
+        const userId = req.body.userId;
+        const data = await tasksModel.find({userId}).sort({updatedAt: -1});
+        res.json({success: true, data});
     } catch (error) {
-        
-    }
+        console.log(error);
+        res.json({success: false, message: "Error Getting Tasks"})
+    }   
 })
 
 //POST /api/tasks/add
@@ -37,7 +40,7 @@ route.post("/add", authMiddleware, async (req, res) => {
         userId
     })
 
-    res.json({success: true, data});
+    res.json({success: true, data, message: "Task Created"});
 
   } catch (error) {
     console.log(error);
@@ -55,8 +58,9 @@ route.post("/edit/:id", authMiddleware, async (req, res) => {
         description: req.body.description,
         priority: req.body.priority,
         status: req.body.status,
-        dueDate: req.body.dueDate
-    })
+        dueDate: req.body.dueDate,
+        updatedAt: Date.now(),
+    }, {new: true})
 
     res.json({success: true, message: "Edited Successfully!!"});
   } catch (error) {

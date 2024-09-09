@@ -1,5 +1,13 @@
+import { useState } from "react"
 
 const AddTask = () => {
+  const [data, setData ] = useState({
+    title: "",
+    description: "",
+    priority: "",
+    status: "",
+    dueDate: "",
+  })
   return (
     <form className="max-w-4xl mx-auto p-4">
     <h2 className="text-center uppercase text-2xl font-medium">Add Task</h2>

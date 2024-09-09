@@ -3,6 +3,15 @@ const route = express.Router();
 const tasksModel = require("../models/taskModel");
 const authMiddleware = require("../auth/authMiddleware");
 
+//GET /api/tasks
+route.get("/", authMiddleware, async(req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+})
+
 //POST /api/tasks/add
 route.post("/add", authMiddleware, async (req, res) => {
   try {

@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 
 //routes
 app.use("/auth", userRoute);
-app.use('/tasks', tasksRoute);
+app.use('/api/tasks', tasksRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on http://localhost:${PORT}`)

@@ -13,7 +13,6 @@ const AddTask = () => {
     dueDate: "",
   })
   const {url, token} = useContext(AppContext);
-  console.log("token retrieved", token)
   const navigate = useNavigate();
 
   const handleOnchange = (e) => {

@@ -37,7 +37,6 @@ const Auth = () => {
       const token = response.data.token;
       setToken(token);
       localStorage.setItem("token", token);
-      console.log("stored token: ", response.data.token);
       navigate("/home");
       toast.success(response.data.message);
     } else {

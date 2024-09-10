@@ -14,21 +14,19 @@ const Home = () => {
 
   const [username, setUsername] = useState("");
   useEffect(() => {
-    const getUsername = async() => {
+    const getUsername = async () => {
       try {
-        const response = await axios.get(`${url}/user`, {headers: {token}});
-        if(response.data.success) {
-         // console.log(response.data.user.username);
+        const response = await axios.get(`${url}/user`, { headers: { token } });
+        if (response.data.success) {
+          // console.log(response.data.user.username);
           setUsername(response.data.user.username);
+        } else {
+          console.log("Failed to find username");
         }
-        else {
-        console.log("Failed to find username")
-        }
-        
       } catch (error) {
         console.log(error);
       }
-    }
+    };
 
     getUsername();
   }, []);
@@ -56,7 +54,10 @@ const Home = () => {
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
       <div className="text-center pb-4">
         <h2 className="text-2xl">
-          Welcome, <span className="text-green-500 font-semibold">{username || "User"}</span>
+          Welcome,{" "}
+          <span className="text-green-500 font-semibold">
+            {username || "User"}
+          </span>
         </h2>
         <p className="text-lg pt-2">
           Add new tasks, edit existing tasks or delete tasks
@@ -102,8 +103,7 @@ const Home = () => {
               </div>
             </div>
             <div className="place-self-end pt-3 text-slate-500 text-xs">
-            {format(new Date(item.dueDate), 'PPPP')} 
-    
+              {format(new Date(item.dueDate), "PPPP")}
             </div>
           </li>
         ))}

@@ -1,30 +1,45 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import taskList from "../Components/taskList";
 import { FaChevronDown } from "react-icons/fa";
-import { useContext, } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../Components/AppContext";
 import axios from "axios";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 const Home = () => {
-    const {taskList, } = useContext(AppContext);
-    const {url, token, fetchTaskList } = useContext(AppContext);
-   // const navigate = useNavigate();
+  const { taskList } = useContext(AppContext);
+  const { url, token, fetchTaskList } = useContext(AppContext);
+  // const navigate = useNavigate();
 
-   const handleDelete = async (id) => {
-    if(!window.confirm("Are you sure you want to delete this task?")) {
+  const [username, setUsername] = useState("");
+
+  async function getName() {
+    try {
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this task?")) {
       return; //Exit if user cancels deletion
     }
     try {
-      const response = await axios.post(`${url}/api/tasks/delete/${id}`, {}, {headers: {token}});
-      if(response.data.success) {
+      const response = await axios.post(
+        `${url}/api/tasks/delete/${id}`,
+        {},
+        { headers: { token } }
+      );
+      if (response.data.success) {
         fetchTaskList(token);
         toast.success(response.data.message);
       }
     } catch (error) {
       console.log(error);
     }
-   }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
@@ -65,18 +80,19 @@ const Home = () => {
                 >
                   Edit
                 </a>
-                
-                  <button onClick={() => handleDelete(item._id)}
-                    type="submit"
-                    className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1"
-                  >
-                    Delete
-                  </button>
-                
+
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  type="submit"
+                  className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1"
+                >
+                  Delete
+                </button>
               </div>
             </div>
-            <div className="place-self-end pt-3 text-slate-500 text-sm">
-              {item.dueDate}
+            <div className="place-self-end pt-3 text-slate-500 text-xs">
+            {format(new Date(item.dueDate), 'PPPP')} 
+    
             </div>
           </li>
         ))}

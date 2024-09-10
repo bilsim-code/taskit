@@ -19,7 +19,7 @@ const Home = () => {
         const response = await axios.get(`${url}/user`, {headers: {token}});
         if(response.data.success) {
          // console.log(response.data.user.username);
-          setUsername(response.data.user.username)
+          setUsername(response.data.user.username);
         }
         else {
         console.log("Failed to find username")
@@ -81,7 +81,7 @@ const Home = () => {
             className="bg-sky-50 shadow shadow-slate-400 rounded-2xl  px-4 py-2.5 flex flex-col "
           >
             <div className="flex justify-between items-center max-nav-xxs:flex-col max-nav-xxs:gap-4">
-              <a href="#" className="font-medium">
+              <a href={`/task/${item._id}`} className="font-medium">
                 {item.title}
               </a>
               <div className="flex gap-2">

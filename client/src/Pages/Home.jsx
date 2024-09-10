@@ -3,10 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 import { useContext, } from "react";
 import { AppContext } from "../Components/AppContext";
+import axios from "axios";
+import {toast} from 'react-toastify';
 
 const Home = () => {
     const {taskList, } = useContext(AppContext);
-    const navigate = useNavigate();
+    const {url, token, fetchTaskList } = useContext(AppContext);
+   // const navigate = useNavigate();
+
+   const handleDelete = async (id) => {
+    try {
+      const response = await axios.post(`${url}/api/tasks/delete/${id}`, {}, {headers: {token}});
+      if(response.data.success) {
+        fetchTaskList(token);
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   }
 
   return (
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
@@ -48,7 +63,7 @@ const Home = () => {
                   Edit
                 </a>
                 
-                  <button onClick={() => navigate(`/delete/${item._id}`)}
+                  <button onClick={() => handleDelete(item._id)}
                     type="submit"
                     className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1"
                   >

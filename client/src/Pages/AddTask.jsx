@@ -12,7 +12,7 @@ const AddTask = () => {
     status: "",
     dueDate: "",
   });
-  const { url, token } = useContext(AppContext);
+  const { url, token, fetchTaskList } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleOnchange = (e) => {
@@ -30,6 +30,7 @@ const AddTask = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         navigate("/home");
+        fetchTaskList(token);
         
         setData({
           title: "",

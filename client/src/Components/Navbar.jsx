@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import task_list_logo from "../assets/task-it_logo.png";
 import profile from "../assets/profile.jpg";
 import { Search, Menu, X, ChevronDown } from "react-feather";
 import {} from "react-icons/md";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import OutsideClickHandler from 'react-outside-click-handler'
+import { AppContext } from "./AppContext";
 
 const Navbar = () => {
   const [sidebarOn, setSidebarOn] = useState(false);
-
+  const {token, } = useContext(AppContext);
+  const navigate = useNavigate();
+  const logoutFunc = () => {
+    localStorage.removeItem("token", token);
+    navigate("/")
+  }
   return (
     <nav className=" bg-sky-300 z-50 sticky top-0 py-2 mb-10">
       <section className="flex items-center justify-between max-w-4xl mx-auto">
@@ -52,12 +58,12 @@ const Navbar = () => {
               <ChevronDown size={'16'}/>
             </div>
             <div className="hidden group-hover:block mt-4 ">
-              <a
-                href="/logout"
+              <button
                 className="bg-red-700 p-1.5 font-semibold rounded px-2 text-white hover:text-slate-400"
+                onClick={logoutFunc}
               >
                 Logout
-              </a>
+              </button>
             </div>
           </li>
         </ul>

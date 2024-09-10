@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../Components/AppContext";
+import { useParams } from "react-router-dom";
+import {toast} from 'react-toastify' 
 
 const EditItem = () => {
+  const {url, token} = useContext(AppContext);
+  const {id} = useParams();
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -13,13 +19,17 @@ const EditItem = () => {
   useEffect(() => {
     const fetchTask = async() => {
       try {
-        const respons = await axios.
-        
+        const response = await axios.get(`${url}/api/tasks/${id}`,{ headers: {token}});
+        if(response.data.success) {
+          setData(response.data.data);
+        }
+       
       } catch (error) {
         console.log("Error fetching task", error);
       }
-    }
-  })
+    };
+    fetchTask();
+  }, [id, url,token])
 
   const handleOnChange = (e) => {
     const name = e.target.name;
@@ -30,7 +40,13 @@ const EditItem = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      
+      const response = await axios.post(`${url}/api/tasks/edit/${id}`, data, {headers: {token}});
+      if(response.data.success) {
+        toast.success(response.data.message);
+      }
+      else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.log(error);
     }

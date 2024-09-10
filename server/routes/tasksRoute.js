@@ -25,7 +25,10 @@ route.get('/:id', authMiddleware, async(req, res) => {
     try {
         const id = req.params.id;
         const userId = req.userId;
-        const data = await tasksModel.findById({_id: id, userId});
+        const data = await tasksModel.findOne({_id: id, userId});
+        if(!data) {
+            return res.json({success: false, message: "Task Not Found"})
+        }
         res.json({success: true, data});
         
     } catch (error) {

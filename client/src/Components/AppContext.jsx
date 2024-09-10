@@ -48,7 +48,7 @@ const ProviderFunction = (props) => {
   
    }
     return(
-        <AppContext.Provider value={{url, setToken, token, taskList, setTaskList, fetchTaskList}}>
+        <AppContext.Provider value={{url, setToken, token, taskList, setTaskList, fetchTaskList }}>
             {props.children}
         </AppContext.Provider>
     )

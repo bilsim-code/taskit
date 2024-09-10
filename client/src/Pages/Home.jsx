@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //import taskList from "../Components/taskList";
 import { FaChevronDown } from "react-icons/fa";
 import { useContext, } from "react";
@@ -6,6 +6,8 @@ import { AppContext } from "../Components/AppContext";
 
 const Home = () => {
     const {taskList, } = useContext(AppContext);
+    const navigate = useNavigate();
+
   return (
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
       <div className="text-center pb-4">
@@ -45,14 +47,14 @@ const Home = () => {
                 >
                   Edit
                 </a>
-                <form action={`/delete/${item._id}`}>
-                  <button
+                
+                  <button onClick={() => navigate(`/delete/${item._id}`)}
                     type="submit"
                     className="bg-red-600 p-1 px-4 rounded-lg text-white max-nav-xxs:p-1"
                   >
                     Delete
                   </button>
-                </form>
+                
               </div>
             </div>
             <div className="place-self-end pt-3 text-slate-500 text-sm">

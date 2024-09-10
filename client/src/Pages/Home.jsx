@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 //import taskList from "../Components/taskList";
 import { FaChevronDown } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Components/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -12,15 +12,30 @@ const Home = () => {
   const { url, token, fetchTaskList } = useContext(AppContext);
   // const navigate = useNavigate();
 
- /*  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
 
   async function getName() {
     try {
+      const response = await axios.get(`${url}/api/tasks/user`, {headers: {token}})
+      if(response.data.success) {
+         setUsername(response.data.data.username); 
+         console.log(response.data)
+      }
+      else {
+        toast.error(response.data.message || "Failed to fetch Username")
+      }
       
     } catch (error) {
       console.log(error);
     }
-  } */
+  }
+
+  useEffect(() => {
+    if(token) {
+      getName();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this task?")) {
@@ -45,7 +60,7 @@ const Home = () => {
     <div className="max-w-4xl mx-auto p-2 min-h-[70vh]">
       <div className="text-center pb-4">
         <h2 className="text-2xl">
-          Welcome, <span className="text-green-500 font-semibold">Bildad</span>
+          Welcome, <span className="text-green-500 font-semibold">{username || "User"}</span>
         </h2>
         <p className="text-lg pt-2">
           Add new tasks, edit existing tasks or delete tasks

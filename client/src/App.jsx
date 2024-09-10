@@ -11,6 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Task from "./Pages/Task";
 
 const App = () => {
+  const isAuthenticated = () => {
+    
+  }
   return (
     <div className="">
       <ToastContainer />

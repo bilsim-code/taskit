@@ -82,8 +82,8 @@ const Home = () => {
             key={index}
             className="bg-sky-50 shadow shadow-slate-400 rounded-2xl  px-4 py-2.5 flex flex-col "
           >
-            <div className="flex justify-between items-center max-nav-xxs:flex-col max-nav-xxs:gap-4">
-              <a href={`/task/${item._id}`} className="font-medium">
+            <div className="flex justify-between items-center max-nav-xxs:flex-col gap-2 max-nav-xxs:gap-4">
+              <a href={`/task/${item._id}`} className="font-medium flex-1">
                 {item.title}
               </a>
               <div className="flex gap-2">

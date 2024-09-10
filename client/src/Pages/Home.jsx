@@ -12,6 +12,9 @@ const Home = () => {
    // const navigate = useNavigate();
 
    const handleDelete = async (id) => {
+    if(!window.confirm("Are you sure you want to delete this task?")) {
+      return; //Exit if user cancels deletion
+    }
     try {
       const response = await axios.post(`${url}/api/tasks/delete/${id}`, {}, {headers: {token}});
       if(response.data.success) {

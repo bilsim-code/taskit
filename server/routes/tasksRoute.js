@@ -20,6 +20,20 @@ route.get("/", authMiddleware, async(req, res) => {
     }   
 })
 
+//GET /api/tasks/:id
+route.get('/:id', authMiddleware, async(req, res) => {
+    try {
+        const id = req.params.id;
+        const userId = req.userId;
+        const data = await tasksModel.findById({_id: id, userId});
+        res.json({success: true, data});
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, message: "Error fetching task"});
+    }
+})
+
 //POST /api/tasks/add
 route.post("/add", authMiddleware, async (req, res) => {
   try {
@@ -86,5 +100,7 @@ route.post("/delete/:id", authMiddleware, async (req, res) => {
     res.json({success: false, message: "Error Deleting Task"})
   }
 });
+
+
 
 module.exports = route;

@@ -76,7 +76,7 @@ const Home = () => {
               </div>
             </div>
             <div className="place-self-end pt-3 text-slate-500 text-sm">
-              duedate
+              {item.dueDate}
             </div>
           </li>
         ))}

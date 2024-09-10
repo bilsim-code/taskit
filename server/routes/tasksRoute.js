@@ -4,6 +4,21 @@ const tasksModel = require("../models/taskModel");
 const userModel = require('../models/userModel');
 const authMiddleware = require("../auth/authMiddleware");
 
+//GET api/tasks/user
+route.get('/user', authMiddleware, async(req, res) => {
+    try {
+        const userId = req.userId;
+        const user = await userModel.findById(userId).select(('username'));
+        if(!user) {
+            return res.json({success: false, message: "User Not Available"});
+        }
+        res.json({success: true, message: user.username})
+        
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 //GET /api/tasks
 route.get("/", authMiddleware, async(req, res) => {
     try {
@@ -103,6 +118,8 @@ route.post("/delete/:id", authMiddleware, async (req, res) => {
     res.json({success: false, message: "Error Deleting Task"})
   }
 });
+
+
 
 
 

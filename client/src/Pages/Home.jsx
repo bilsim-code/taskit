@@ -12,7 +12,7 @@ const Home = () => {
   const { url, token, fetchTaskList } = useContext(AppContext);
   // const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+ /*  const [username, setUsername] = useState("");
 
   async function getName() {
     try {
@@ -20,7 +20,7 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  } */
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this task?")) {

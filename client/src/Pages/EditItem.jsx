@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Components/AppContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {toast} from 'react-toastify' 
 
 const EditItem = () => {
-  const {url, token} = useContext(AppContext);
+  const {url, token,fetchTaskList} = useContext(AppContext);
+  const navigate = useNavigate()
   const {id} = useParams();
   const [data, setData] = useState({
     title: "",
@@ -43,6 +44,8 @@ const EditItem = () => {
       const response = await axios.post(`${url}/api/tasks/edit/${id}`, data, {headers: {token}});
       if(response.data.success) {
         toast.success(response.data.message);
+        navigate('/home');
+        fetchTaskList(token)
       }
       else {
         toast.error(response.data.message);

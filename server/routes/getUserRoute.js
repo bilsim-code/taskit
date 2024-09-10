@@ -8,14 +8,15 @@ const userModel = require('../models/userModel')
 route.get('/', authMiddleware, async(req, res) => {
     try {
         const userId = req.userId;
-        const user = await userModel.findById(userId).select('username');
+        const user = await userModel.findById(userId);
         if(!user) {
             return res.json({success: false, message: "User Not Available"});
         }
-        res.json({success: true, message: user.username})
+        res.json({success: true, user})
         
     } catch (error) {
         console.log(error);
+        res.json({success: false, message: "Error"});
     }
 })
 

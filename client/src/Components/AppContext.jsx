@@ -7,7 +7,7 @@ export const AppContext = createContext();
 
 const ProviderFunction = (props) => {
     const url = "http://localhost:3000";
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState("");
     const [taskList, setTaskList] = useState([]);
     const navigate = useNavigate();
 

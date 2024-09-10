@@ -13,29 +13,25 @@ const Home = () => {
   // const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
-
-  async function getName() {
-    try {
-      const response = await axios.get(`${url}/api/tasks/user`, {headers: {token}})
-      if(response.data.success) {
-         setUsername(response.data.data.username); 
-         console.log(response.data)
-      }
-      else {
-        toast.error(response.data.message || "Failed to fetch Username")
-      }
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
-    if(token) {
-      getName();
+    const getUsername = async() => {
+      try {
+        const response = await axios.get(`${url}/user`, {headers: {token}});
+        if(response.data.success) {
+         // console.log(response.data.user.username);
+          setUsername(response.data.user.username)
+        }
+        else {
+        console.log("Failed to find username")
+        }
+        
+      } catch (error) {
+        console.log(error);
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token])
+
+    getUsername();
+  }, []);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this task?")) {
